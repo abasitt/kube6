@@ -42,15 +42,19 @@ spec:
             - name: status-port
               port: 15021
               targetPort: 15021
+              nodePort: 30070
             - name: tls
               port: 15443
               targetPort: 15443
+              nodePort: 30071
             - name: tls-istiod
               port: 15012
               targetPort: 15012
+              nodePort: 30072
             - name: tls-webhook
               port: 15017
               targetPort: 15017
+              nodePort: 30073
 
     pilot:
       k8s:
@@ -66,8 +70,8 @@ spec:
     global:
       meshID: mesh1
       multiCluster:
-        clusterName: cluster1
-      network: network1
+        clusterName: cluster2
+      network: network2
       proxy:
         resources:
           requests:
@@ -79,9 +83,9 @@ spec:
             - fromRegistry: cluster1
           gateways:
             - address: 172.18.0.5 #cluster1 nodeIP
-              port: 32231 #eastwest gw nodeport
+              port: 30071 #eastwest gw nodeport
             - address: 172.18.0.6 #cluster1 nodeIP
-              port: 32231 ##eastwest gw nodeport
+              port: 30071 ##eastwest gw nodeport
 
     pilot:
       autoscaleEnabled: false
