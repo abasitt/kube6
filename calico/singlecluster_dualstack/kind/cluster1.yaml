@@ -9,4 +9,6 @@ networking:
   disableDefaultCNI: true
   podSubnet: "2001:db8:42:0::/56,10.244.0.0/16"  # Specify both IPv4 and IPv6 subnets
   serviceSubnet: "2001:db8:42:1::/112,10.96.0.0/12"  # Specify both IPv4 and IPv6 subnets
-  kubeProxyMode: none  # This disables kube-proxy
+  #podSubnet: "10.244.0.0/16,2001:db8:42:0::/56"  # Specify both IPv4 and IPv6 subnets
+  #serviceSubnet: "10.96.0.0/12,2001:db8:42:1::/112"  # Specify both IPv4 and IPv6 subnets
+  #kubeProxyMode: none  # This disables kube-proxy

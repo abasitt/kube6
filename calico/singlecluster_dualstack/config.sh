@@ -8,10 +8,9 @@ CLUSTER1_NAME=caldual
 
 
 
-CLUSTER1_CTX=kind-clu1
-CLUSTER2_CTX=kind-clu2
+CLUSTER1_CTX=kind-caldual
 
 
 #istio version
-HUB=docker.io/istio
-TAG=1.18.2
+HUB=gcr.io/istio-release
+TAG=1.23.0-alpha.0

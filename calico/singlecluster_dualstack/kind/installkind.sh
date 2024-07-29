@@ -45,6 +45,6 @@ kind load docker-image --name $CLUSTER1_NAME quay.io/calico/csi:v3.28.0
 # apply calico cni kustomize
 echo "install Calico CNI to clusters..."
 kubectl --context kind-$CLUSTER1_NAME create -f calico/tigera-ns.yaml
-kubectl --context kind-$CLUSTER1_NAME apply -f calico/calico-k8sep.yaml
+#kubectl --context kind-$CLUSTER1_NAME apply -f calico/calico-k8sep.yaml
 kubectl --context kind-$CLUSTER1_NAME create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/tigera-operator.yaml
 kubectl create -f calico/operator-cr.yaml

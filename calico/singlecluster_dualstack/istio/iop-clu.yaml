@@ -1,0 +1,30 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  components:
+    cni:
+      enabled: true
+    ztunnel:
+      enabled: true
+    ingressGateways:
+    - name: istio-ingressgateway
+      enabled: false
+  meshConfig:
+    defaultConfig:
+      proxyMetadata:
+        ISTIO_META_ENABLE_HBONE: "true"
+    accessLogFile: /dev/stdout
+
+  values:
+    global:
+      variant: distroless
+    pilot:
+      env:
+        PILOT_ENABLE_AMBIENT: "true"
+    cni:
+      ambient:
+        enabled: true
+        dnsCapture: true
+    
+    # Ztunnel doesn't use a namespace, so everything here is mostly for ztunnel
+    #variant: distroless

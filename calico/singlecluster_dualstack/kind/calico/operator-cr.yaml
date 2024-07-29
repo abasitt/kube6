@@ -8,7 +8,7 @@ spec:
   registry: quay.io
   imagePath: calico
   calicoNetwork:
-    linuxDataplane: BPF
+    linuxDataplane: Iptables
     #bgp: Enabled
     # Note: The ipPools section cannot be modified post-install.
     nodeAddressAutodetectionV6:
