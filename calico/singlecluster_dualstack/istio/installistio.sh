@@ -10,7 +10,8 @@ docker pull $HUB/proxyv2:$TAG
 echo "load istio images to the clusters..."
 kind load docker-image --name $CLUSTER1_NAME $HUB/pilot:$TAG
 kind load docker-image --name $CLUSTER1_NAME $HUB/proxyv2:$TAG
-
+kind load docker-image --name $CLUSTER1_NAME $HUB/ztunnel:$TAG
+kind load docker-image --name $CLUSTER1_NAME $HUB/install-cni:$TAG
 
 # point this to your latest build binary
 istioctl_latest=/usr/local/bin/istioctl
@@ -20,4 +21,4 @@ kubectl create namespace istio-system --context=${CLUSTER1_CTX}
 
 # Install istio iop profile on cluster1
 echo "Installing istio in $CLUSTER1_NAME..."
-istioctl --context="${CLUSTER1_CTX}" install -f iop-clu.yaml --skip-confirmation
+istioctl --context="${CLUSTER1_CTX}" install -f iop-clu.yaml --set hub=$HUB --skip-confirmation
