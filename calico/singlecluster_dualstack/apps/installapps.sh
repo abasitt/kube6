@@ -21,3 +21,6 @@ echo "Install demo apps to kind clusters..."
 kubectl --context=kind-$CLUSTER1_NAME apply -f https://raw.githubusercontent.com/istio/istio/master/samples/sleep/sleep.yaml
 kubectl --context=kind-$CLUSTER1_NAME apply -f https://raw.githubusercontent.com/istio/istio/master/samples/helloworld/helloworld.yaml -l service=helloworld
 kubectl --context=kind-$CLUSTER1_NAME apply -f https://raw.githubusercontent.com/istio/istio/master/samples/helloworld/helloworld.yaml -l version=v1
+
+echo "enable ambient mode"
+kubectl label namespace default istio.io/dataplane-mode=ambient
