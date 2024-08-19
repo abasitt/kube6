@@ -9,7 +9,7 @@ data:
     cd /tmp
     wget https://github.com/containernetworking/plugins/releases/download/v1.5.1/cni-plugins-linux-amd64-v1.5.1.tgz
     cd /host/opt/cni/bin
-    tar xvfzp /tmp/cni-plugins-linux-amd64-v1.3.0.tgz
+    tar xvfzp /tmp/cni-plugins-linux-amd64-v1.5.1.tgz
     sleep infinite
 ---
 apiVersion: apps/v1
