@@ -18,9 +18,8 @@ spec:
     - settings:
         clusterLocal: true
       hosts:
-      #default ns, add additional ns per requirements
-      - "*.yb.svc.cluster.local"
-      - "*.default.svc.cluster.local"
+      #add ns to exclude from multicluster
+      - "*.oss.svc.cluster.local"
 
   components:
     ingressGateways:
