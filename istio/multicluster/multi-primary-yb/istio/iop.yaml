@@ -57,7 +57,7 @@ spec:
   values:
     pilot:
       autoscaleEnabled: true
-      autoscaleMin: 1
+      autoscaleMin: 2
       autoscaleMax: 5
       # Resources for a small pilot install
       resources:
@@ -74,4 +74,5 @@ spec:
     gateways:
       istio-ingressgateway:
         injectionTemplate: gateway
-        autoscaleMin: 1
+        autoscaleMin: 2
+        autoscaleMax: 5
