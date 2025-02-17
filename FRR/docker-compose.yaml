@@ -1,4 +1,4 @@
-version: "3.9"
+---
 services:
     frr_host:
         image: frrouting/frr:latest
