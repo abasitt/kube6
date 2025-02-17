@@ -1,0 +1,77 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  profile: default
+  hub: gcr.io/istio-release
+  tag: 1.24.3
+  meshConfig:
+    defaultConfig:
+      proxyMetadata:
+        # Enable basic DNS proxying
+        ISTIO_META_DNS_CAPTURE: "true"
+        # Enable automatic address allocation, optional
+        ISTIO_META_DNS_AUTO_ALLOCATE: "true"
+    #enable accesslogs
+    accessLogFile: /dev/stdout
+    #enable clusterlocaltraffic restrict to local cluster per namespace
+    serviceSettings:
+    - settings:
+        clusterLocal: true
+      hosts:
+      #default ns, add additional ns per requirements
+      - "*.yb.svc.cluster.local"
+      - "*.default.svc.cluster.local"
+
+  components:
+    ingressGateways:
+    - name: istio-ingressgateway
+      enabled: true
+    - name: istio-egressgateway
+      enabled: false
+    - name: istio-eastwestgateway
+      label:
+        istio: eastwestgateway
+        app: istio-eastwestgateway
+        topology.istio.io/network: 
+      enabled: true
+      k8s:
+        env:
+          # traffic through this gateway should be routed inside the network
+          - name: ISTIO_META_REQUESTED_NETWORK_VIEW
+            value: CLUSTER_CTX-net
+        service:
+          ports:
+            - name: status-port
+              port: 15021
+              targetPort: 15021
+            - name: tls
+              port: 15443
+              targetPort: 15443
+            - name: tls-istiod
+              port: 15012
+              targetPort: 15012
+            - name: tls-webhook
+              port: 15017
+              targetPort: 15017
+
+  values:
+    pilot:
+      autoscaleEnabled: true
+      autoscaleMin: 1
+      autoscaleMax: 5
+      # Resources for a small pilot install
+      resources:
+        requests:
+          cpu: 500m
+          memory: 2048Mi
+
+    global:
+      meshID: mesh1
+      multiCluster:
+        clusterName: CLUSTER_CTX
+      network: CLUSTER_CTX-net
+
+    gateways:
+      istio-ingressgateway:
+        injectionTemplate: gateway
+        autoscaleMin: 1
